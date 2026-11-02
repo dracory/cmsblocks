@@ -14,6 +14,12 @@ Reusable `dracory/cmsstore` custom block types for Blueprint-style projects.
 | `blogpostlist` | `blog_post_list` | Paginated blog post cards, column layout, excerpts |
 | `search` | `search` | Search box + paginated results across CMS pages and blog posts |
 
+## Installation
+
+```sh
+go get github.com/dracory/cmsblocks
+```
+
 ## Usage
 
 ```go
@@ -21,9 +27,20 @@ postURL := func(postID, postSlug string) string {
     return links.Website().BlogPost(postID, postSlug) // or any project URL builder
 }
 
-b := blogpost.NewBlogPostBlockType(blogStore)
-b.SetPostURLFunc(postURL) // optional — defaults to /blog/post/{id}/{slug}
-cmsstore.RegisterCustomBlockType(b)
+// Single blog post
+post := blogpost.NewBlogPostBlockType(blogStore)
+post.SetPostURLFunc(postURL) // optional — defaults to /blog/post/{id}/{slug}
+cmsstore.RegisterCustomBlockType(post)
+
+// Paginated blog post list
+list := blogpostlist.NewBlogPostListBlockType(blogStore)
+list.SetPostURLFunc(postURL)
+cmsstore.RegisterCustomBlockType(list)
+
+// Search across CMS pages and blog posts
+search := search.NewSearchBlockType(cmsStore, blogStore)
+search.SetPostURLFunc(postURL)
+cmsstore.RegisterCustomBlockType(search)
 ```
 
 Each block type accepts an optional `SetPostURLFunc` so the project controls
@@ -32,5 +49,6 @@ the public post URL format; without it, links default to
 
 ## Dependencies
 
-`dracory/blogstore`, `dracory/cmsstore`, `dracory/form`, `dracory/hb`,
-`dracory/social`, `samber/lo`, `spf13/cast`.
+`dracory/blogstore`, `dracory/bs`, `dracory/cdn`, `dracory/cmsstore`,
+`dracory/form`, `dracory/hb`, `dracory/social`, `dracory/test`, `samber/lo`,
+`spf13/cast`, `modernc.org/sqlite`.
