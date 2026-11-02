@@ -1,5 +1,9 @@
 # cmsblocks
 
+[![Tests Status](https://github.com/dracory/cmsblocks/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/dracory/cmsblocks/actions/workflows/tests.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/dracory/cmsblocks)](https://goreportcard.com/report/github.com/dracory/cmsblocks)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/dracory/cmsblocks)](https://pkg.go.dev/github.com/dracory/cmsblocks)
+
 Reusable `dracory/cmsstore` custom block types for Blueprint-style projects.
 
 ## Block types
